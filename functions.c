@@ -15,7 +15,7 @@ void Izbornik (void)			//Glavni izbornik
 	{
 	   case 1:
 	   {
-	   int BrojBodova = PacMan();                //case 1 pokrece Pacman igru
+	   int BrojBodova = PacMan();                      //case 1 pokrece Pacman igru
 	   }; break; 
 	case 2:
 	{
@@ -24,12 +24,12 @@ void Izbornik (void)			//Glavni izbornik
       break;
 case 3:
       {
-	Upute ();		                                //case 3 prikazuje pravila Pacman igre
+	Upute ();		                           //case 3 prikazuje pravila Pacman igre
       };
       break;
 case 4:
       {
-	Izlaz ();		                                //case 4 izlazi iz programa
+	Izlaz ();		                           //case 4 izlazi iz programa
       };
       break;
 default:
