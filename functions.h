@@ -1,6 +1,13 @@
 #ifndef FUNCTIONS_H_INCLUDED
 #define FUNCTIONS_H_INCLUDED
 
+typedef struct
+{
+	char ime[20];
+	int bodovi;
+}PLAYER;
+PLAYER igrac;
+
 void Izbornik(void);
 int PacMan(void);
 void Ljestvica(void);
