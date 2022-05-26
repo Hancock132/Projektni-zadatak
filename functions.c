@@ -101,7 +101,8 @@ int PacMan(void)
 	{
 		system("cls");
 		printf("\nUpisite 'da' ili 'ne'.\n");                          //ako napisemo nesto sto nije "da" ili "ne" dobit cemo ovu poruku i ponovno cemo moci napisati "da" ili "ne"*/
-		
+	}
+}
 		
 /* void UpisBodova(int BrojBodova)
 {
