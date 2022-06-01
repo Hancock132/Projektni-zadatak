@@ -51,7 +51,7 @@ default:
 	NatragNaIzbornik();
 }*/
 
-int PacMan(void)  			// ovo se treba razvrstat u datoteke i uklopit sa ostalim programom/izbornikom
+int PacMan(void)  			// ovo se treba razvrstat u datoteke i uklopit sa ostatkom programa/izbornikom
 {
 #include <windows.h>
 #include <stdio.h>
