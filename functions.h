@@ -15,7 +15,7 @@ struct coord
 	int y;
 };
 
-struct PacMan
+/* struct PacMan
 {
 	struct coord position;
 	int vx;
@@ -43,7 +43,7 @@ struct PacMan myPacMan = {
 	.vx = 0,
 	.vy = 0,
 	.food_coll = 0;				   
-};
+}; */
 
 void Izbornik(void);
 int PacMan(void);
@@ -61,7 +61,7 @@ void NatragNaIzbornik(void);
 void BrojIgraca(void);
 void PretrazivanjeIgraca(void);
 void PonovnoPretrazi(void);
-void display();
+/* void display();
 void SetColor(int ForgC);
 void initialize();
 void user_input();
@@ -71,6 +71,6 @@ void check_coll();
 void set_cursor_position();
 void hidecursor();
 void SetColor();
-int main();
+int main(); */
 
 #endif 
