@@ -314,8 +314,6 @@ void move_figures()
 
 }
 
-
-
    // 4. update PacMan's coordinate
 
    myPacMan.position.x += myPacMan.vx;
@@ -470,7 +468,6 @@ int main()
    system("cls");
    hidecursor();
    initialize();
-   // PlaySound(TEXT("pacman.wav"),NULL,SND_SYNC);
 
    while (1)
    {
