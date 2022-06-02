@@ -9,13 +9,13 @@ typedef struct
 }PLAYER;
 PLAYER igrac;
 
-struct coord
+/* struct coord
 {
 	int x;
 	int y;
 };
 
-/* struct PacMan
+struct PacMan
 {
 	struct coord position;
 	int vx;
