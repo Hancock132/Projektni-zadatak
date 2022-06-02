@@ -1,5 +1,6 @@
-#ifndef FUNCTIONS_H_INCLUDED
-#define FUNCTIONS_H_INCLUDED
+#define _CRT_SECURE_NO_WARNINGS
+#ifndef FUNCTIONS
+#define FUNCTIONS
 
 typedef struct
 {
@@ -21,5 +22,9 @@ void SelectionSortBodovi(PLAYER*, const int);
 void IspisLjestviceIme(PLAYER*, const int);
 void IspisLjestviceBodovi(PLAYER*, const int);
 void NatragNaIzbornik(void);
+void BrojIgraca(void);
+void PretrazivanjeIgraca(void);
+void PonovnoPretrazi(void);
+
 
 #endif 
