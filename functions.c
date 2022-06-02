@@ -3,12 +3,12 @@
 #include <stdlib.h>
 #include <string.h>
 #include <time.h>
-#include <windows.h>
+/* #include <windows.h>
 #include <conio.h>
 #include<MMsystem.h>
 #define H 30
 #define W 60
-#define gho1 5
+#define gho1 5 */
 #include "functions.h"
 
 void Izbornik(void)			//Glavni izbornik
@@ -65,7 +65,7 @@ int PacMan(void)
 	printf("Dobrodosli u igru PacMan!\nMozete upisati rijec 'izlaz' za povratak u izbornik\n\n");
 	srand(time(NULL));
 	int BrojBodova = 0;
-	char playfield[H][W] =
+	/* char playfield[H][W] =
 {
    { "############################################################" },
    { "#                                                          #" },
@@ -443,10 +443,10 @@ int main()
 		set_cursor_position(0, 0);
 	}
 
-}
+}*/
 
 	return BrojBodova;
-}
+} 
 
 void Izlaz(void)
 {
