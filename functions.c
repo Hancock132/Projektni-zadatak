@@ -44,14 +44,14 @@ default:
 }
 
 
-/* void Upute(void)         //pravila/upute za igranje vjesala
+void Upute(void)         //pravila/upute za igranje vjesala
 {
 	system("cls");
 	printf("\nIgrac kontrolira Pac-Mana, koji mora pojesti sve tocke unutar zatvorenog labirinta, izbjegavajuci duhove. Bodovi se dobivaju za svaku pojedenu tocku. Igrac gubi ako ga pojede jedan od duhova\n\n");
 	NatragNaIzbornik();
-}*/
+}
 
-int PacMan(void)  			// ovo se treba razvrstat u datoteke i uklopit sa ostatkom programa/izbornikom
+/* int PacMan(void)  			// ovo se treba razvrstat u datoteke i uklopit sa ostatkom programa/izbornikom
 {
 #include <windows.h>
 #include <stdio.h>
@@ -484,10 +484,9 @@ int main()
    }
 
 }
-    
-}
+}*/
 
-/* void PokusajPonovno(int BrojBodova)
+void PokusajPonovno(int BrojBodova)
 {
 	char da[] = "da";
 	char ne[] = "ne";
@@ -509,10 +508,9 @@ int main()
 		printf("\nUpisite 'da' ili 'ne'\n\n");              //ako upisemo nesto sto nije "da" ili "ne" 
 		PokusajPonovno(BrojBodova);
 	}
-} */
+} 
 
-
-/* void Izlaz(void)
+void Izlaz(void)
 {
 	char da[] = "da";
 	char ne[] = "ne";
@@ -535,7 +533,7 @@ int main()
 	}
 }
 		
-/* void UpisBodova(int BrojBodova)
+void UpisBodova(int BrojBodova)
 {
 	FILE* Test = NULL;
 	Test = fopen("Ljestvica.bin", "rb");                    //Program provjerava postoji li Ljestvica.bin 
@@ -571,10 +569,10 @@ int main()
 		system("cls");
 	}
 	fclose(fp);
-} */
+} 
 
 
-/* void Ljestvica(void)
+void Ljestvica(void)
 {
 	system("cls");
 	FILE* fp = NULL;
@@ -633,10 +631,9 @@ int main()
 			}
 		} while (1);
 	}
-} */
+} 
 
-
-/* void SelectionSortBodovi(PLAYER* igrac, const int k)
+void SelectionSortBodovi(PLAYER* igrac, const int k)
 {
 	int min = 0;
 	for (int i = 0; i < k - 1; i++)
@@ -651,10 +648,9 @@ int main()
 		}
 		Zamjena((igrac + i), (igrac + min));
 	}
-} */
+} 
 
-
-/* void SelectionSortIme(PLAYER* igrac, const int k)
+void SelectionSortIme(PLAYER* igrac, const int k)
 {
 	int min = 0;
 	for (int i = 0; i < k - 1; i++)
@@ -669,28 +665,25 @@ int main()
 		}
 		Zamjena((igrac + i), (igrac + min));
 	}
-} */
+} 
 
-
-/* void Zamjena(PLAYER* veci, PLAYER* manji) 
+void Zamjena(PLAYER* veci, PLAYER* manji) 
 {
 	PLAYER temp = *manji;
 	*manji = *veci;
 	*veci = temp;
-} */
+} 
 
-
-/* void IspisLjestviceIme(PLAYER* igrac, const int k)
+void IspisLjestviceIme(PLAYER* igrac, const int k)
 {
 	int i;
 	for (i = 0; i < k; i++)
 	{
 		printf("\n%d. Ime: %s   Bodovi: %d\n", (i + 1), (igrac + i)->ime, (igrac + i)->bodovi);
 	}
-} */
+} 
 
-
-/* void IspisLjestviceBodovi(PLAYER* igrac, const int k)
+void IspisLjestviceBodovi(PLAYER* igrac, const int k)
 {
 	int i;
 	for (i = 0; i < 10; i++)
@@ -699,8 +692,7 @@ int main()
 	}
 } */
 
-
-/* void NatragNaIzbornik(void)
+void NatragNaIzbornik(void)
 {
 	while ((getchar()) != '\n');
 	int p = 0;
@@ -717,7 +709,7 @@ int main()
 		printf("\nPogresan unos, pokusajte ponovno\n\n");
 		NatragNaIzbornik();
 	}
-} */
+} 
 
 
 
