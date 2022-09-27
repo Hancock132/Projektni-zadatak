@@ -1,76 +1,34 @@
-#define _CRT_SECURE_NO_WARNINGS
-#ifndef FUNCTIONS
-#define FUNCTIONS
+#ifndef FUNCTIONS_H
+#define FUNCTIONS_H
 
-typedef struct
-{
-	char ime[20];
-	int bodovi;
-}PLAYER;
-PLAYER igrac;
+typedef struct alkohol {
+	int id;
+	char kategorija[25];
+	char ime[25];
+	int cijena;
+	int kolicina;
+}ALKOHOL;
 
-/* struct coord
-{
-	int x;
-	int y;
-};
+int izbornik();
+int izbornikPretrazivanje();
+int izbornikSortiranje();
+void kreiranjeDatoteke();
+void dodavanjeAlkoholnogPica();
+void azuriranje();
+void* ucitavanjeAlkoholnogPica();
+void ispisivanje(ALKOHOL*);
+void* pretragaIme(ALKOHOL*);
+void* pretragaCijena(ALKOHOL*);
+void* pretragaKategorija(ALKOHOL*);
+void zamjena(ALKOHOL*, ALKOHOL*);
+void selectionSortNajjefCijena(ALKOHOL*);
+void selectionSortNajskupCijena(ALKOHOL*);
 
-struct PacMan
-{
-	struct coord position;
-	int vx;
-	int vy;
-	int food_coll;
-};
+void brisanjeAlkoholnogPica(ALKOHOL*);
 
-
-struct Ghost
-{
-	struct coord position;
-	int vx;
-	int vy;
-};
+void brisanjeDatoteke(ALKOHOL*);
 
 
-struct Ghost allGhosts[gho1];
-struct Ghost allGhosts2[gho1];
+#endif // HEADER_H
 
-struct PacMan myPacMan = {
-	{
-		.x = 1,
-		.y = 5,
-	};
-	.vx = 0,
-	.vy = 0,
-	.food_coll = 0;				   
-}; */
 
-void Izbornik(void);
-int PacMan(void);
-void Ljestvica(void);
-void Upute(void);
-void Izlaz(void);
-void UpisBodova(int);
-void PokusajPonovno(int);
-void Zamjena(PLAYER*, PLAYER*);
-void SelectionSortIme(PLAYER*, const int);
-void SelectionSortBodovi(PLAYER*, const int);
-void IspisLjestviceIme(PLAYER*, const int);
-void IspisLjestviceBodovi(PLAYER*, const int);
-void NatragNaIzbornik(void);
-void BrojIgraca(void);
-void PretrazivanjeIgraca(void);
-void PonovnoPretrazi(void);
-/* void display();
-void SetColor(int ForgC);
-void initialize();
-void user_input();
-void move_figures();
-void show_playfield();
-void check_coll();
-void set_cursor_position();
-void hidecursor();
-void SetColor();
-int main(); */
-
-#endif 
