@@ -2,760 +2,392 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <time.h>
-/* #include <windows.h>
-#include <conio.h>
-#include<MMsystem.h>
-#define H 30
-#define W 60
-#define gho1 5 */
 #include "functions.h"
 
-void Izbornik(void)			//Glavni izbornik
-{
-	int a = 0;
-	do
-	{
-		printf("Odaberite opciju:\n1. Pokreni igru\n2. Ljestvica\n3. Upute za igranje\n4. Izlaz\n\n");
-		scanf("%d", &a);
-		switch (a)
-		{
-		case 1:
-		{
-			int BrojBodova = PacMan();                   //case 1 pokrece Pacman igru
-		}; break;
-		case 2:
-		{
-			Ljestvica();		                     //case 2 prikazuje ljestvicu
-		};
-		break;
-		case 3:
-		{
-			Upute();		                      //case 3 prikazuje pravila Pacman igre
-		};
-		break;
-		case 4:
-		{
-			Izlaz();		                       //case 4 izlazi iz programa
-		};
-		break;
-		default:
-		{
-			system("cls");
-			while ((getchar()) != '\n');
-			printf("Molim da unesete broj izmedu 1 i 4.\n\n");	//ako upisemo nesto drugo zamolit ce nas da upisemo broj izmedu 1 i 4
-		};
-		}
-	} while (1);
-}
+static int brojAlkoholnogPica = 0;
+static int i;
+static int j;
+static int br = 0;
 
+int izbornik() {
+	int uvjet = 0;
+	static ALKOHOL* polje = NULL;
 
-void Upute(void)         //pravila/upute za igranje vjesala
-{
+	printf("Odaberite jednu od opcija.");
+	printf("\n***************************\n");
+	printf("Opcija 1: Dodaj alkoholno pice\n");
+	printf("Opcija 2: Azuriranje alkoholnog pica\n");
+	printf("Opcija 3: Ispisivanje alkoholnog pica\n");
+	printf("Opcija 4: Pretrazivanje alkoholnog pica\n");
+	printf("Opcija 5: Sortiranje alkoholnih pica\n");
+	printf("Opcija 6: Brisanje alkoholnog pica\n");
+	printf("Opcija 7: Izlaz iz programa\n");
+	printf("***************************\n");
+
+	printf("ODABIR: ");
+	scanf("%d", &uvjet);
 	system("cls");
-	printf("\nIgrac kontrolira Pac-Mana predstavljenog znakom @, koji mora pojesti sve tocke unutar zatvorenog labirinta, izbjegavajuci duhove oznacene s #. Bodovi se dobivaju za svaku pojedenu tocku. Igrac gubi ako ga pojede jedan od duhova.\n\n");
-	NatragNaIzbornik();
-}
 
+	switch (uvjet) {
+	case 1:	ucitavanjeAlkoholnogPica();
+		if (brojAlkoholnogPica == 0) {
+		kreiranjeDatoteke();
+	}
+			dodavanjeAlkoholnogPica();
+			break;
 
-int PacMan(void)
-{
-	system("cls");
-	while ((getchar()) != '\n');
-	printf("Dobrodosli u igru PacMan!\nMozete upisati rijec 'izlaz' za povratak u izbornik\n\n");
-	srand(time(NULL));
-	int BrojBodova = 0;
-	/* char playfield[H][W] =
-{
-   { "############################################################" },
-   { "#                                                          #" },
-   { "#   ##################     ######    ###################   #" },
-   { "#                  ####      ##     ####                   #" },
-   { "#    ####   ###    ####      ##     ####    ###    ####    #" },
-   { "#    ####   ###    ####    ######   ####    ###    ####    #" },
-   { "#    ####                                          ####    #" },
-   { "#     ##################     ##     ##################     #" },
-   { "#                            ##                            #" },
-   { "#   ###############   ###    ##    ###   ###############   #" },
-   { "#   ###               ###          ###               ###   #" },
-   { "#   ###  ###   ##########  ##  ##  ##########  ###   ###   #" },
-   { "#   ###               ###          ###               ###   #" },
-   { "#   ###############   ###  ##  ##  ###   ###############   #" },
-   { "#                                                          #" },
-   { "#   ####    ###   #######   ####   #######   ###    ####   #" },
-   { "#   ####    ###   #######   ####   #######   ###    ####   #" },
-   { "#   ####    ###       ###   ####   ###       ###    ####   #" },
-   { "#   ####                    ####                    ####   #" },
-   { "#   ####     ############          ############     ####   #" },
-   { "#   ####     ###                            ###     ####   #" },
-   { "#   ####     ###                            ###     ####   #" },
-   { "#   ####     ##################################     ####   #" },
-   { "#   ####                                            ####   #" },
-   { "#   ####   #############     ##     #############   ####   #" },
-   { "#   ####   #############     ##     #############   ####   #" },
-   { "#   ####        ####         ##          ####       ####   #" },
-   { "#               ####     ##########      ####              #" },
-   { "#       ####             ##########             ####       #" },
-   { "############################################################" }
-};
-void display();
-void SetColor(int ForgC);
-void initialize()
-{
-	// 1. replace each empty field in the playfield with a food field
-	int i;
+	case 2: azuriranje(); break;
 
-	for (i = 0; i < H; i++)
-	{
-		int j;
-		for (j = 0; j < W; j++)
-		{
-			if (playfield[i][j] == ' ')
-				playfield[i][j] = '.';
+	case 3: if (polje != NULL) {
+		free(polje);
+		polje = NULL;
+	}
+		  polje = (ALKOHOL*)ucitavanjeAlkoholnogPica();
+			ispisivanje(polje);
+		  break;
+
+	case 4:
+		while (uvjet != 90) {
+			uvjet = izbornikPretrazivanje();
 		}
-	}
+		  break;
 
-	// 2. initialize all ghosts
+	case 5: while (uvjet != 89)
+		uvjet = izbornikSortiranje();
+		break;
 
-	for (i = 0; i < gho1; i++)
-	{
-		allGhosts[i].vx = 0;
-		allGhosts[i].vy = 0;
-		// try to find a (x,y) coordinate randomly where a food piece is
-		int x, y;
-		do
-		{
-			x = 1 + rand() % (W - 1);
-			y = 1 + rand() % (H - 1);
-
-		} while (playfield[y][x] != '.');
-		allGhosts[i].position.x = x;
-		allGhosts[i].position.y = y;
-		playfield[y][x] = '%';
-
-	}
-	for (i = 0; i < gho1; i++)
-	{
-		allGhosts2[i].vx = 0;
-		allGhosts2[i].vy = 0;
-		// try to find a (x,y) coordinate randomly where a food piece is
-		int x, y;
-		do
-		{
-			x = 1 + rand() % (W - 1);
-			y = 1 + rand() % (H - 1);
-
-		} while (playfield[y][x] != '.');
-		allGhosts2[i].position.x = x;
-		allGhosts2[i].position.y = y;
-		playfield[y][x] = '%';
-
-	}
-
-
-
-}
-
-void user_input()
-{
-	if (_kbhit())
-	{
-		char c1 = _getch();
-
-		if (c1 == -32)
-		{
-			char c2 = _getch();
-
-			myPacMan.vx = 0;
-			myPacMan.vy = 0;
-			int i;
-			for (i = 0; i < gho1; i++)
-			{
-				allGhosts[i].vx = 0;
-				allGhosts[i].vy = 0;
-				allGhosts2[i].vx = 0;
-				allGhosts2[i].vy = 0;
-
-			}
-
-			switch (c2)
-			{
-			case 72: myPacMan.vy = -1; break; // cursor up
-			case 80: myPacMan.vy = +1; break; // cursor down
-			case 75: myPacMan.vx = -1; break; // cursor left
-			case 77: myPacMan.vx = +1; break; // cursor right
-			}
-			for (i = 0; i < gho1; i++)
-			{
-				allGhosts[i].vx = +1;
-				allGhosts[i].vy = +1;
-				allGhosts2[i].vx = 0;
-				allGhosts2[i].vy = +1;
-			}
-		}
-
-
-
-
-	}
-
-}
-void display()
-{
-	SetColor(1);
-	printf("                                        _______   ______    _____   ___      ___   ______   ___       \n");
-	printf("                                       ||     || ||    ||  ||      ||  |    |  || ||    || ||  |    ||\n");
-	printf("                                       ||     || ||    ||  ||      ||   |  |   || ||    || ||   |   ||\n");
-	printf("                                       ||_____|| ||____||  ||      ||    ||    || ||____|| ||    |  ||\n");
-	printf("                                       ||        ||    ||  ||      ||          || ||    || ||     | ||\n");
-	printf("                                       ||        ||    ||  ||____  ||          || ||    || ||      |||\n");
-	SetColor(15);
-}
-
-void move_figures()
-{
-	// 1. delete PacMan from old position
-	playfield[myPacMan.position.y][myPacMan.position.x] = ' ';
-	int i;
-	for (i = 0; i < gho1; i++)
-	{
-		playfield[allGhosts[i].position.y][allGhosts[i].position.x] = ' ';
-		playfield[allGhosts2[i].position.y][allGhosts2[i].position.x] = ' ';
-	}
-
-	// 2. compute new desired coordinate (nx,ny)
-	int nx = myPacMan.vx + myPacMan.position.x;
-	int ny = myPacMan.vy + myPacMan.position.y;
-	int mx[5];
-	int my[5];
-	int mx1[5];
-	int my1[5];
-	for (i = 0; i < gho1; i++)
-	{
-		mx[i] = allGhosts[i].vx + allGhosts[i].position.x;
-		my[i] = allGhosts[i].vy + allGhosts[i].position.y;
-		mx1[i] = allGhosts2[i].vx + allGhosts2[i].position.x;
-		my1[i] = allGhosts2[i].vy + allGhosts2[i].position.y;
-	}
-	// 3. test whether there is a wall at (nx,ny)
-	if (playfield[ny][nx] == '#')
-	{
-		myPacMan.vx = 0;
-		myPacMan.vy = 0;
-	}
-	for (i = 0; i < gho1; i++)
-	{
-
-		if (playfield[my[i]][mx[i]] == '#')
-		{
-			if (allGhosts[i].vx > 0 || allGhosts[i].vy > 0)
-			{
-
-				allGhosts[i].vx = -1;
-				allGhosts[i].vy = -1;
-			}
+	case 6: if(polje == NULL)
+				printf("Nema unesenih alkoholnih pica\n\n");
 			else
-			{
-				allGhosts[i].vx = +1;
-				allGhosts[i].vy = +1;
-			}
-		}
-		if (playfield[my1[i]][mx1[i]] == '#')
-		{
-			if (allGhosts2[i].vy < 0)
-			{
+				brisanjeAlkoholnogPica(polje);
+		break;
 
-				allGhosts2[i].vx = 0;
-				allGhosts2[i].vy = +1;
-			}
-			else
-			{
-				allGhosts2[i].vx = 0;
-				allGhosts2[i].vy = -1;
-			}
-		}
-
-
-
+	case 7: brisanjeDatoteke(polje);
+		return 99;
+		break;
+	default: printf("\nPogresan unos!\n\n");
 	}
 
-
-	// 4. update PacMan's coordinate
-
-	myPacMan.position.x += myPacMan.vx;
-	myPacMan.position.y += myPacMan.vy;
-	for (i = 0; i < gho1; i++)
-	{
-		allGhosts[i].position.x += allGhosts[i].vx;
-		allGhosts[i].position.y += allGhosts[i].vy;
-		allGhosts2[i].position.x += allGhosts2[i].vx;
-		allGhosts2[i].position.y += allGhosts2[i].vy;
-
-	}
-
-	// 5. check for a food piece at the new location
-	if (playfield[ny][nx] == '.')
-	{
-		myPacMan.food_coll++;
-	}
-	for (i = 0; i < gho1; i++)
-
-	{
-
-		if (playfield[my[i]][mx[i]] == '.')
-		{
-
-			playfield[my[i] - allGhosts[i].vy][mx[i] - allGhosts[i].vx] = '.';
-		}
-		if (playfield[my1[i]][mx1[i]] == '.')
-		{
-
-			playfield[my1[i] - allGhosts2[i].vy][mx1[i] - allGhosts2[i].vx] = '.';
-		}
-	}
-
-
-	// 6. put PacMan back again to playfield
-
-	playfield[myPacMan.position.y][myPacMan.position.x] = '@';
-	for (i = 0; i < gho1; i++)
-	{
-		playfield[allGhosts[i].position.y][allGhosts[i].position.x] = '%';
-		playfield[allGhosts2[i].position.y][allGhosts2[i].position.x] = '%';
-	}
-
+	return uvjet;
 }
 
-void show_playfield()
-{
-	int i;
-	for (i = 0; i < H; i++)
-	{
-		printf("                                       ");
-		int j;
-		for (j = 0; j < W; j++)
-		{
-			if (playfield[i][j] == '.')
-			{
-				SetColor(4);
-				printf("%c", playfield[i][j]);
-				SetColor(15);
-			}
-			else if (playfield[i][j] == '%')
-			{
-				SetColor(9);
-				printf("%c", playfield[i][j]);
-				SetColor(15);
-			}
-			else if (playfield[i][j] == '@')
-			{
-				SetColor(14);
-				printf("%c", playfield[i][j]);
-				SetColor(15);
-			}
-			else
-			{
-				printf("%c", playfield[i][j]);
-			}
-		}
-		printf("\n");
-	}
-
-	printf("                                       Score: %d\n", myPacMan.food_coll);
-}
-void check_coll()
-{
-	int i = 0;
-	for (i = 0; i < gho1; i++)
-	{
-		if ((allGhosts[i].position.x == myPacMan.position.x && allGhosts[i].position.y == myPacMan.position.y) || (allGhosts2[i].position.x == myPacMan.position.x && allGhosts2[i].position.y == myPacMan.position.y))
-		{
-			system("cls");
-			display();
-			printf("\n\n\n");
-			printf("     \t\t\t\t\t\t\t\t\tYOUR SCORE IS:%d", myPacMan.food_coll);
-			getchar();
-			exit(0);
-		}
-		if (myPacMan.food_coll >= 250)
-		{
-			system("cls");
-			display();
-			printf("\n\n\n");
-			printf("     \t\t\t\t\t\t\t\tYOUR SCORE IS:%d", myPacMan.food_coll);
-			getchar();
-			exit(0);
-		}
-	}
-}
-
-void set_cursor_position(int x, int y)
-{
-	//Initialize the coordinates
-	COORD coord = { x, y };
-	//Set the position
-	SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
-
-} // set_cursor_position
-
-
-void hidecursor()
-{
-	HANDLE consoleHandle = GetStdHandle(STD_OUTPUT_HANDLE);
-	CONSOLE_CURSOR_INFO info;
-	info.dwSize = 100;
-	info.bVisible = FALSE;
-	SetConsoleCursorInfo(consoleHandle, &info);
-}
-void SetColor(int ForgC)
-{
-	WORD wColor;
-	//This handle is needed to get the current background attribute
-
-	HANDLE hStdOut = GetStdHandle(STD_OUTPUT_HANDLE);
-	CONSOLE_SCREEN_BUFFER_INFO csbi;
-	//csbi is used for wAttributes word
-
-	if (GetConsoleScreenBufferInfo(hStdOut, &csbi))
-	{
-		//To mask out all but the background attribute, and to add the color
-		wColor = (csbi.wAttributes & 0xF0) + (ForgC & 0x0F);
-		SetConsoleTextAttribute(hStdOut, wColor);
-	}
-	return;
-}
-
-
-int main()
-{
-	system("cls");
-	hidecursor();
-	initialize();
-
-	while (1)
-	{
-		user_input();
-		move_figures();
-		display();
-		show_playfield();
-		check_coll();
-		Sleep(10 / 30);
-		set_cursor_position(0, 0);
-	}
-
-}*/
-
-	return BrojBodova;
-} 
-
-void Izlaz(void)
-{
-	char da[] = "da";
-	char ne[] = "ne";
-	char odluka[3];
-	printf("Jeste li sigurni zelite li izaci iz igre?\nda/ne\n\n");
-	scanf("%s", &odluka);
-	if (_strcmpi(da, odluka) == 0)                                        //ako upisemo "da" izaci cemo potpuno iz programa
-	{
-		exit(EXIT_SUCCESS);
-	}
-	if (_strcmpi(ne, odluka) == 0)                                       //ako upisemo "ne" vracamo se natrag u izbornik
-	{
+int izbornikPretrazivanje() {
+	int uvjet = 0;
+	ALKOHOL* polje = NULL;
+	polje = (ALKOHOL*)ucitavanjeAlkoholnogPica();
+		printf("Pretrazivanje.\n\n");
+		printf("Opcija 1: Cijena\n");
+		printf("Opcija 2: Kategorija\n");
+		printf("Opcija 3: Ime\n");
+		printf("Opcija 4: Povratak\n");
+		printf("ODABIR: ");
+		scanf("%d", &uvjet);
 		system("cls");
-		Izbornik();
-	}
-	else
-	{
-		system("cls");
-		printf("\nUpisite 'da' ili 'ne'.\n");                          //ako napisemo nesto sto nije "da" ili "ne" dobit cemo ovu poruku i ponovno cemo moci napisati "da" ili "ne"
 
-		Izlaz();
+		switch (uvjet) {
+		case 1: pretragaCijena(polje); break;
+		case 2: pretragaKategorija(polje); break;
+		case 3:	pretragaIme(polje); break;
+		case 4: return 90;
+		default: printf("\nPogresan unos!\n");
+
+		}
+
+		return uvjet;
 	}
+
+int izbornikSortiranje() {
+	int uvjet = 0;
+	ALKOHOL* polje = NULL;
+	polje = (ALKOHOL*)ucitavanjeAlkoholnogPica();
+	printf("Sortiranje.\n\n");
+	printf("Opcija 1: Cijena od najjeftinijeg do najskupljeg\n");
+	printf("Opcija 2: Cijena od najskupljeg do najjeftinijeg\n");
+	printf("Opcija 3: Povratak\n");
+	printf("ODABIR: ");
+	scanf("%d", &uvjet);
+	system("cls");
+
+	switch (uvjet) {
+	case 1: selectionSortNajjefCijena(polje); break;
+	case 2: selectionSortNajskupCijena(polje); break;
+	case 3: return 89;
+	default: printf("\nPogresan unos!\n");
+
+	}
+
+	return uvjet;
 }
 
-void UpisBodova(int BrojBodova)
-{
-	FILE* Test = NULL;
-	Test = fopen("Ljestvica.bin", "rb");                    //Program provjerava postoji li Ljestvica.bin 
-	if (Test == NULL)
-	{
-		fflush(Test);
-		Test = fopen("Ljestvica.bin", "wb");                //Ako ne postoji Ljestvica.bin program ju napravi, u suprotnom ako vec postoji Ljestvica.bin program ide dalje
-		int Broj = 0;
-		fwrite(&Broj, sizeof(int), 1, Test);
-	}
-	fclose(Test);
-	PLAYER* igrac = NULL;
-	igrac = (PLAYER*)calloc(1, sizeof(PLAYER));
+void kreiranjeDatoteke() {
 	FILE* fp = NULL;
-	fp = fopen("Ljestvica.bin", "rb+");
-	if (fp == NULL)
-	{
-		perror("Otvaranje");
+	fp = fopen("AlkoholnaPica.bin", "wb");
+
+	if (fp == NULL) {
+		perror("Kreiranje");
 	}
-	else
-	{
-		int x = 0;
-		fread(&x, sizeof(int), 1, fp);
-		x++;
-		fseek(fp, 0, SEEK_SET);
-		fwrite(&x, sizeof(int), 1, fp);
-		fseek(fp, 0, SEEK_END);
-		printf("Osvojeni bodovi: %d\n", BrojBodova);
-		printf("Unesite vase ime: ");
-		scanf(" %[^\n]%*c", igrac->ime);
-		igrac->bodovi = BrojBodova;
-		fwrite(igrac, sizeof(PLAYER), 1, fp);
-		system("cls");
-	}
+
+	fwrite(&brojAlkoholnogPica, sizeof(int), 1, fp);
 	fclose(fp);
 }
 
-void PokusajPonovno(int BrojBodova)
-{
-	char da[] = "da";
-	char ne[] = "ne";
-	char odluka[3];
-	printf("\nBroj bodova: %d\n", BrojBodova);
-	printf("Pokusaj ponovno?\nda/ne\n\n");                   //Opcija da pokusamo ponovno odigrati PacMan ako nismo zadovoljni s dobivenim bodovima
-	scanf("%s", &odluka);
-	if (_strcmpi(da, odluka) == 0)                            //ako upisemo "da" ponovno se pokrece PacMan
-	{
-		PacMan();
-	}
-	if (_strcmpi(ne, odluka) == 0)                           //ako upisemo "ne" program ide dalje s upisivanjem bodova i korisnickog imena
-	{
-		UpisBodova(BrojBodova);
-	}
-	else
-	{
-		system("cls");
-		printf("\nUpisite 'da' ili 'ne'\n\n");              //ako upisemo nesto sto nije "da" ili "ne" 
-		PokusajPonovno(BrojBodova);
-	}
-}
-
-void Ljestvica(void)
-{
-	system("cls");
+void dodavanjeAlkoholnogPica() {
 	FILE* fp = NULL;
-	fp = fopen("Ljestvica.bin", "rb+");
+	fp = fopen("AlkoholnaPica.bin", "rb+");
+
 	if (fp == NULL)
-	{
-		perror("Error");
-		printf("Nema upisanih igraca");                 //ako pokusamo otvoriti ljestvicu dok nema upisanih igraca dobit cemo poruku da trenutacno nema igraca i vratit ce nas u izbornik
-		NatragNaIzbornik();
-	}
-	else
-	{
-		int k = 0;
-		fread(&k, sizeof(int), 1, fp);
-		PLAYER* igrac = NULL;
-		igrac = (PLAYER*)calloc(k, sizeof(PLAYER));
-		fread(igrac, sizeof(PLAYER), k, fp);
-		int x = 0;
-		do
-		{
-			while ((getchar()) != '\n');
-			BrojIgraca();
-			printf("Zelite li poredati po:\n1. imenima\n2. bodovima\n3. Pretrazi igraca\n4. Nazad\n\n\n");
-			scanf("%d", &x);
-			switch (x)
-			{
-			case 1:
-			{
-				system("cls");
-				SelectionSortIme(igrac, k);
-				IspisLjestviceIme(igrac, k);
-				NatragNaIzbornik();
-			} break;
-			case 2:
-			{
-				system("cls");
-				SelectionSortBodovi(igrac, k);
-				IspisLjestviceBodovi(igrac, k);
-				NatragNaIzbornik();
-			}break;
-			case 3:
-			{
-				system("cls");
-				PretrazivanjeIgraca();
-			}break;
-			case 4:
-			{
-				system("cls");
-				Izbornik();
-			}
-			default:
-			{
-				system("cls");
-				printf("Molim da unesete broj izmedu 1 i 3\n\n");
-			};
-			}
-		} while (1);
+		perror("Dodavanje");
+
+	fread(&brojAlkoholnogPica, sizeof(int), 1, fp);
+	printf("Trenutni broj artikala: %d", brojAlkoholnogPica);
+
+	ALKOHOL alkoholi;
+	alkoholi.id = brojAlkoholnogPica+1;
+	br++;
+	getchar();
+	printf("\nUnesite kategoriju alkoholnog pica: ");
+	scanf("%24[^\n]", alkoholi.kategorija);
+	getchar();
+	printf("\nUnesite ime alkoholnog pica: ");
+	scanf("%24[^\n]", alkoholi.ime);
+	printf("\nUnesite cijenu alkoholnog pica: ");
+	scanf("%d", &alkoholi.cijena);
+	printf("\nUnesite kolicinu alkoholnog pica: ");
+	scanf("%d", &alkoholi.kolicina);
+	fseek(fp, sizeof(ALKOHOL) * brojAlkoholnogPica, SEEK_CUR);
+	fwrite(&alkoholi, sizeof(ALKOHOL), 1, fp);
+	rewind(fp);
+	brojAlkoholnogPica++;
+	fwrite(&brojAlkoholnogPica, sizeof(int), 1, fp);
+	fclose(fp);
+}
+
+void azuriranje() {
+	FILE* fp = NULL;
+	int ispravak;
+	fp = fopen("AlkoholnaPica.bin", "rb+");
+	if (fp == NULL)
+		printf("Nema unesenog alkoholnog pica\n\n");
+	else {
+		printf("Unesi broj alkoholnog pica koji zelite ispraviti.\n");
+		scanf("%d", &ispravak);
+		fseek(fp, sizeof(int) + (sizeof(ALKOHOL) * (ispravak - 1)), SEEK_SET);
+		ALKOHOL ispravljenAlkohol;
+		ispravljenAlkohol.id = ispravak;
+		getchar();
+		printf("\nUnesite ispravljenu kategoriju alkoholnog pica: ");
+		scanf("%24[^\n]", ispravljenAlkohol.kategorija);
+		getchar();
+		printf("\nUnesite ime alkoholnog pica: ");
+		scanf("%24[^\n]", ispravljenAlkohol.ime);
+		printf("\nUnesite cijenu alkoholnog pica: ");
+		scanf("%d", &ispravljenAlkohol.cijena);
+		printf("\nUnesite kolicinu alkoholnog pica: ");
+		scanf("%d", &ispravljenAlkohol.kolicina);
+		fwrite(&ispravljenAlkohol, sizeof(ALKOHOL), 1, fp);
+		rewind(fp);
+		fwrite(&brojAlkoholnogPica, sizeof(int), 1, fp);
+		fclose(fp);
+
 	}
 }
 
+void* ucitavanjeAlkoholnogPica() {
+	FILE* fp = fopen("AloholnaPica.bin", "rb");
+	if (fp == NULL) {
+		printf("Nema unesenih alkoholnih pica.\n\n");
+		return NULL;
+	}
+	fread(&brojAlkoholnogPica, sizeof(int), 1, fp);
+	ALKOHOL* polje = NULL;
+	polje = (ALKOHOL*)calloc(brojAlkoholnogPica, sizeof(ALKOHOL));
+	if (polje == NULL) {
+		perror("Zauzimanje memorije");
+		return NULL;
+	}
+	fread(polje, sizeof(ALKOHOL), brojAlkoholnogPica, fp);
+	fclose(fp);
+	return polje;
+}
 
-void SelectionSortBodovi(PLAYER* igrac, const int k)
-{
-	int min = 0;
-	for (int i = 0; i < k - 1; i++)
+void ispisivanje(ALKOHOL* polje) {
+	for (i = 0; i < brojAlkoholnogPica; i++)
 	{
-		min = i;
-		for (int j = i + 1; j < k; j++)
-		{
-			if ((igrac + j)->bodovi > (igrac + min)->bodovi)
-			{
-				min = j;
-			}
+		printf("Alkoholno pice broj %d:\tID: %d\tKategorija: %s\tIme: %s\tCijena: %d\tKolicina: %d\n", i + 1, (polje + i)->id, (polje + i)->kategorija, (polje + i)->ime, (polje + i)->cijena, (polje + i)->kolicina);
+	}
+}
+
+void* pretragaIme(ALKOHOL* polje) {
+	char trazenoIme[25];
+	int brojac = 0;
+
+	printf("Upisite ime alkoholnog pica koje zelite pronaci.\n");
+	getchar();
+	scanf("%24[^\n]", trazenoIme);
+
+	for (i = 0; i < brojAlkoholnogPica; i++) {
+		if (!strcmp(trazenoIme, (polje + i)->ime)) {
+			printf("\nIme alkoholnog pica je pronadeno!\n\n");
+			printf("Kategorija: %s\tIme: %s\tCijena: %d\tKolicina: %d\n\n", (polje + i)->kategorija, (polje + i)->ime, (polje + i)->cijena, (polje + i)->kolicina);
+			brojac++;
 		}
-		Zamjena((igrac + i), (igrac + min));
 	}
+	if (brojac == 0)
+		printf("\nIme alkoholnog pica nije pronadeno!\n\n");
+	return NULL;
 }
 
+void* pretragaKategorija(ALKOHOL* polje) {
+	char trazenaKategorija[25];
+	int brojac=0;
 
-void SelectionSortIme(PLAYER* igrac, const int k)
-{
-	int min = 0;
-	for (int i = 0; i < k - 1; i++)
-	{
-		min = i;
-		for (int j = i + 1; j < k; j++)
-		{
-			if (strcmp((igrac + j)->ime, (igrac + min)->ime) < 0)
-			{
-				min = j;
-			}
+	printf("Upisite kategoriju alkoholnog pica koju zelite pronaci.\n");
+	getchar();
+	scanf("%24[^\n]", trazenaKategorija);
+
+	for (i = 0; i < brojAlkoholnogPica; i++) {
+		if (!strcmp(trazenaKategorija, (polje + i)->kategorija)) {
+			printf("\nKategorija alkoholnog pica je pronadena!\n\n");
+			printf("Kategorija: %s\tIme: %s\tCijena: %d\tKolicina: %d\n\n", (polje + i)->kategorija, (polje + i)->ime, (polje + i)->cijena, (polje + i)->kolicina);
+			brojac++;
 		}
-		Zamjena((igrac + i), (igrac + min));
 	}
+	if (brojac == 0)
+		printf("\nKategorija alkoholnog pica nije pronadena!\n\n");
+	return NULL;
 }
 
+void* pretragaCijena(ALKOHOL* polje) {
+	int trazenaCijena;
+	int brojac = 0;
 
-void Zamjena(PLAYER* veci, PLAYER* manji)
-{
-	PLAYER temp = *manji;
+	printf("Upisite cijenu alkoholnog pica kojeg zelite pronaci.\n");
+	scanf("%d", &trazenaCijena);
+
+	for (i = 0; i < brojAlkoholnogPica; i++) {
+		if (trazenaCijena == (polje + i)->cijena) {
+			printf("\nCijena alkoholnog pica je pronadena!\n\n");
+			printf("Kategorija: %s\tIme: %s\tCijena: %d\tKolicina: %d\n\n", (polje + i)->kategorija, (polje + i)->ime, (polje + i)->cijena, (polje + i)->kolicina);
+			brojac++;
+		}
+	}
+	if (brojac == 0)
+		printf("\nCijena alkoholnog pica nije pronadena!\n\n");
+	return NULL;
+}
+
+void zamjena(ALKOHOL* veci, ALKOHOL* manji) {
+	ALKOHOL temp = { 0 };
+	temp = *manji;
 	*manji = *veci;
 	*veci = temp;
 }
 
-
-void IspisLjestviceIme(PLAYER* igrac, const int k)
-{
-	int i;
-	for (i = 0; i < k; i++)
+void selectionSortNajjefCijena(ALKOHOL* polje) {
+	int min = -1;
+	printf("Sortirana alkoholna pica po cijeni od najjeftinijeg do najskupljeg.\n");
+	for (i = 0; i < brojAlkoholnogPica - 1; i++)
 	{
-		printf("\n%d. Ime: %s   Bodovi: %d\n", (i + 1), (igrac + i)->ime, (igrac + i)->bodovi);
-	}
-}
-
-
-void IspisLjestviceBodovi(PLAYER* igrac, const int k)
-{
-	int i;
-	for (i = 0; i < 10; i++)
-	{
-		printf("\n%d. Ime: %s   Bodovi: %d\n", (i + 1), (igrac + i)->ime, (igrac + i)->bodovi);
-	}
-}
-
-
-void NatragNaIzbornik(void)
-{
-	while ((getchar()) != '\n');
-	int p = 0;
-	printf("\nPritisnite broj 1 za povratak u izbornik  ");
-	scanf("%d", &p);
-	if (p == 1)
-	{
-		system("cls");
-		Izbornik();
-	}
-	else
-	{
-		system("cls");
-		printf("\nPogresan unos, pokusajte ponovno\n\n");
-		NatragNaIzbornik();
-	}
-}
-
-void BrojIgraca(void)
-{
-	FILE* fp;
-	fp = fopen("Ljestvica.bin", "rb+");
-	rewind(fp);
-	if (fp == NULL)
-	{
-		perror("Otvaranje");
-	}
-	else
-	{
-		fseek(fp, 0, SEEK_END);
-		int broj = ftell(fp) / sizeof(PLAYER);                                //cita broj zapisanih igraca u strukturi
-		printf("Trenutacni broj igraca: %d\n\n", broj);
-	}
-	fclose(fp);
-}
-
-
-void PretrazivanjeIgraca(void)
-{
-	FILE* fp = NULL;
-	fp = fopen("Ljestvica.bin", "rb+");
-	if (fp == NULL)
-	{
-		perror("Otvaranje");
-	}
-	fseek(fp, 0, SEEK_END);
-	fseek(fp, sizeof(int), SEEK_SET);
-	char s[20];
-	printf("Unesite ime igraca: ");
-	scanf(" %[^\n]%*c", s);
-	int k = 0;
-	while (fread(&igrac, sizeof(igrac), 1, fp) == 1)
-	{
-		if (_strcmpi(igrac.ime, (s)) == 0)                                                    //usporeduje uneseno ime s imenima u strukturi
+		min = i;
+		for (j = i + 1; j < brojAlkoholnogPica; j++)
 		{
-			printf("\nIme: %s\nBroj bodova: %d\n", igrac.ime, igrac.bodovi);
-			k++;                                                                            //ako je ime pronadeno 'k' se poveca za 1
+			if ((polje + j)->cijena < (polje + min)->cijena) {
+				min = j;
+			}
+		}
+		zamjena((polje + i), (polje + min));
+	}
+
+	for (i = 0; i < brojAlkoholnogPica; i++)
+	{
+		if (i == 0) {
+			printf("Kategorija: %s\tIme: %s\tCijena: %d\tKolicina: %d\n", (polje + i)->kategorija, (polje + i)->ime, (polje + i)->cijena, (polje + i)->kolicina);
+
+		}
+		else if (i > 0 && i < brojAlkoholnogPica - 1) {
+			printf("Kategorija: %s\tIme: %s\tCijena: %d\tKolicina: %d\n", (polje + i)->kategorija, (polje + i)->ime, (polje + i)->cijena, (polje + i)->kolicina);
+
+		}
+		else {
+			printf("Kategorija: %s\tIme: %s\tCijena: %d\tKolicina: %d\n", (polje + i)->kategorija, (polje + i)->ime, (polje + i)->cijena, (polje + i)->kolicina);
+
 		}
 	}
-	if (k == 0)                                                                            //ako se 'k' nije povecao to znaci da ime nije pronadeno
+	printf("\n");
+}
+
+void selectionSortNajskupCijena(ALKOHOL* polje) {
+	int min = -1;
+	printf("Sortirana alkoholna pica po cijeni od najskupljeg do najjeftinijeg.\n");
+	for (i = 0; i < brojAlkoholnogPica - 1; i++)
 	{
-		printf("Ime nije pronadeno");
+		min = i;
+		for (j = i + 1; j < brojAlkoholnogPica; j++)
+		{
+			if ((polje + j)->cijena > (polje + min)->cijena) {
+				min = j;
+			}
+		}
+		zamjena((polje + i), (polje + min));
 	}
-	PonovnoPretrazi();
+
+	for (i = 0; i < brojAlkoholnogPica; i++)
+	{
+		if (i == 0) {
+			printf("Kategorija: %s\tIme: %s\tCijena: %d\tKolicina: %d\n", (polje + i)->kategorija, (polje + i)->ime, (polje + i)->cijena, (polje + i)->kolicina);
+
+		}
+		else if (i > 0 && i < brojAlkoholnogPica - 1) {
+			printf("Kategorija: %s\tIme: %s\tCijena: %d\tKolicina: %d\n", (polje + i)->kategorija, (polje + i)->ime, (polje + i)->cijena, (polje + i)->kolicina);
+
+		}
+		else {
+			printf("Kategorija: %s\tIme: %s\tCijena: %d\tKolicina: %d\n", (polje + i)->kategorija, (polje + i)->ime, (polje + i)->cijena, (polje + i)->kolicina);
+
+		}
+	}
+	printf("\n");
+}
+
+void brisanjeAlkoholnogPica(ALKOHOL* polje){
+	FILE* fp=NULL;
+	fp=fopen("AlkoholnaPica.bin","wb");
+	if(fp == NULL){
+		perror("  Brisanje alkoholnog pica");
+	}
+
+	rewind(fp);
+	fseek(fp, sizeof(int),SEEK_CUR);
+
+	int brojac = 0;
+	int trazenoAlkoholnoPice;
+
+	printf("\nUnesi ID alkoholnog pica koji zelite obrisati\n");
+	scanf("%d",&trazenoAlkoholnoPice);
+
+	for(i=0; i < brojAlkoholnogPica; i++){
+		if(trazenoAlkoholnoPice != (polje + i)->id){
+			fwrite((polje + i), sizeof(ALKOHOL), 1, fp);
+			brojac++;
+	}
+	}
+	rewind(fp);
+	fwrite(&brojac, sizeof(int), 1, fp);
 	fclose(fp);
 }
 
+void brisanjeDatoteke(ALKOHOL* polje) {
+	printf("Zelite li pri izlasku programa izbrisati datoteku ili zadrzati?\n");
+	printf("Ako zelite izbrisati datoteku upisite \"da\", u suprotnome upisite \"ne\" te datoteku zadrzavate.\n\n");
 
-void PonovnoPretrazi(void)
-{
-	char da[] = "da";
-	char ne[] = "ne";
-	char odluka[3];
-	printf("\n\nZelite li ponovo pretraziti igraca?\nda/ne\n");
-	scanf("%s", &odluka);
-	if (_strcmpi(da, odluka) == 0)                                                 //ako upisemo 'da' ponovno se pokrece funkcija za pretrazivanje igraca
-	{
-		system("cls");
-		PretrazivanjeIgraca();
+	char upit[3] = { '\0' };
+	scanf("%2s", upit);
+
+	if (!strcmp("da", upit)) {
+		remove("AlkoholnaPica.bin") == 0 ? printf("\nUspjesno obrisana datoteka!\n") : printf("\nNeuspjesno brisanje datoteke ili datoteka uopce ne postoji!\n");
+		printf("\nIzlaz iz programa!!\n");
+		free(polje);
+
 	}
-	if (_strcmpi(ne, odluka) == 0)                                                //ako upisemo 'ne' vracamo se natrag u izbornik
-	{
-		system("cls");
-		Izbornik();
-	}
-	else
-	{
-		system("cls");
-		printf("Molim vas unesite 'da' ili 'ne'\n\n");
-		PonovnoPretrazi();
-	}
+	else printf("\nDatoteka zadrzana.\n\nIzlaz iz programa!!\n");
 }
-
-
-
-
-
