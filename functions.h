@@ -1,34 +1,17 @@
 #ifndef FUNCTIONS_H
 #define FUNCTIONS_H
 
-typedef struct alkohol {
-	int id;
-	char kategorija[25];
-	char ime[25];
-	int cijena;
-	int kolicina;
-}ALKOHOL;
+#include "dataType.h"
 
-int izbornik();
-int izbornikPretrazivanje();
-int izbornikSortiranje();
-void kreiranjeDatoteke();
-void dodavanjeAlkoholnogPica();
-void azuriranje();
-void* ucitavanjeAlkoholnogPica();
-void ispisivanje(ALKOHOL*);
-void* pretragaIme(ALKOHOL*);
-void* pretragaCijena(ALKOHOL*);
-void* pretragaKategorija(ALKOHOL*);
-void zamjena(ALKOHOL*, ALKOHOL*);
-void selectionSortNajjefCijena(ALKOHOL*);
-void selectionSortNajskupCijena(ALKOHOL*);
+int izbornik(const char* const);
+void kreiranjeDatoteke(const char* const);
+void dodajStudenta(const char* const);
+void* ucitajStudente(const char* const);
+void ispisiSveStudente(const STUDENT* const);
+STUDENT* pretraziStudente(STUDENT* const);
+void uredivanjeStudenata(STUDENT*, const char* const);
+void brisanjeStudenta(STUDENT* const, const char* const);
+void ispisPoGodinama(const STUDENT*);
+int izlazIzPrograma(STUDENT*);
 
-void brisanjeAlkoholnogPica(ALKOHOL*);
-
-void brisanjeDatoteke(ALKOHOL*);
-
-
-#endif // HEADER_H
-
-
+#endif
