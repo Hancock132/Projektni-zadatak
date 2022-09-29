@@ -2,13 +2,20 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "functions.h"
+#include "dataType.h"
 
-int main() {
-	int uvjet = 1;
-	printf("***SKLADISTE ALKOHOLNIH PICA***\n\n");
+int main(void) {
 
-	while (uvjet != 99)
-		uvjet = izbornik();
+    int uvjet = 1;
 
-	return 0;
+    char* datoteka = "studenti.bin";
+
+    while (uvjet) {
+        uvjet = izbornik(datoteka);
+    }
+
+    printf("Kraj programa");
+
+    return 0;
 }
+
